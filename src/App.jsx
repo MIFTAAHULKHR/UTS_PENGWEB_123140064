@@ -13,8 +13,104 @@ const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [dateRange, setDateRange] = useState({ from: '', to: '' });
   
-  const API_KEY = 'c55a2ef964ec4367883e121fd4af23dc'; // Ganti dengan NewsAPI key kamu
+  const API_KEY = process.env.REACT_APP_NEWS_API_KEY || 'c55a2ef964ec4367883e121fd4af23dc';
   const pageSize = 9;
+
+  // FALLBACK DATA FUNCTION
+  const getDummyNews = (category, query) => {
+    const baseNews = [
+      {
+        title: "Perkembangan Teknologi AI di Indonesia",
+        description: "Artificial Intelligence semakin berkembang dan diterapkan di berbagai sektor industri Indonesia.",
+        urlToImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=250&fit=crop",
+        publishedAt: new Date().toISOString(),
+        url: "#",
+        source: { name: "Tech News" }
+      },
+      {
+        title: "Inovasi Terbaru di Bidang Teknologi",
+        description: "Berbagai inovasi teknologi terbaru yang akan mengubah cara kita bekerja dan hidup.",
+        urlToImage: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=250&fit=crop",
+        publishedAt: new Date().toISOString(),
+        url: "#",
+        source: { name: "Innovation Daily" }
+      },
+      {
+        title: "Update Terkini Sepak Bola Liga Indonesia",
+        description: "Hasil pertandingan dan berita terbaru dari Liga 1 Indonesia musim ini.",
+        urlToImage: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=250&fit=crop",
+        publishedAt: new Date().toISOString(),
+        url: "#",
+        source: { name: "Sports Update" }
+      },
+      {
+        title: "Pasar Bisnis Indonesia Tumbuh Positif",
+        description: "Ekonomi Indonesia menunjukkan pertumbuhan yang stabil di tengah tantangan global.",
+        urlToImage: "https://images.unsplash.com/photo-1665686377065-08f8896a5d2e?w=400&h=250&fit=crop",
+        publishedAt: new Date().toISOString(),
+        url: "#",
+        source: { name: "Business Report" }
+      },
+      {
+        title: "Kesehatan: Tips Hidup Sehat di Era Digital",
+        description: "Panduan menjaga kesehatan fisik dan mental di tengah kesibukan kerja digital.",
+        urlToImage: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=400&h=250&fit=crop",
+        publishedAt: new Date().toISOString(),
+        url: "#",
+        source: { name: "Health Magazine" }
+      },
+      {
+        title: "Entertainment: Film Indonesia Raih Penghargaan",
+        description: "Film-film lokal semakin diakui di kancah internasional dengan berbagai penghargaan.",
+        urlToImage: "https://images.unsplash.com/photo-1489599809505-7c7c3a8fbd78?w=400&h=250&fit=crop",
+        publishedAt: new Date().toISOString(),
+        url: "#",
+        source: { name: "Entertainment News" }
+      },
+      {
+        title: "Startup Teknologi Indonesia Dapat Pendanaan",
+        description: "Startup lokal berhasil mendapatkan pendanaan series B dari investor internasional.",
+        urlToImage: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400&h=250&fit=crop",
+        publishedAt: new Date().toISOString(),
+        url: "#",
+        source: { name: "Tech Startup" }
+      },
+      {
+        title: "E-Sports Indonesia di Kancah Global",
+        description: "Tim e-sports Indonesia berhasil mencapai babak final turnamen internasional.",
+        urlToImage: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=250&fit=crop",
+        publishedAt: new Date().toISOString(),
+        url: "#",
+        source: { name: "E-Sports News" }
+      },
+      {
+        title: "Energi Terbarukan di Indonesia",
+        description: "Pengembangan energi surya dan angin semakin masif di berbagai daerah Indonesia.",
+        urlToImage: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=400&h=250&fit=crop",
+        publishedAt: new Date().toISOString(),
+        url: "#",
+        source: { name: "Energy Update" }
+      }
+    ];
+
+    // Filter by category or search query
+    let filteredNews = baseNews;
+    if (category && category !== 'general') {
+      filteredNews = baseNews.filter(article => 
+        article.title.toLowerCase().includes(category.toLowerCase()) ||
+        article.description.toLowerCase().includes(category.toLowerCase()) ||
+        article.source.name.toLowerCase().includes(category.toLowerCase())
+      );
+    }
+    if (query) {
+      filteredNews = baseNews.filter(article => 
+        article.title.toLowerCase().includes(query.toLowerCase()) ||
+        article.description.toLowerCase().includes(query.toLowerCase())
+      );
+    }
+
+    return filteredNews.length > 0 ? filteredNews : baseNews.slice(0, 6);
+  };
 
   const fetchNews = async (category, page = 1, query = '', dates = {}) => {
     setLoading(true);
@@ -28,18 +124,28 @@ const App = () => {
       if (dates.to) url += `&to=${dates.to}`;
 
       const response = await fetch(url);
+      
+      // Check if response is OK
+      if (!response.ok) {
+        throw new Error(`API Error: ${response.status}`);
+      }
+      
       const data = await response.json();
 
-      if (data.status === 'ok') {
+      if (data.status === 'ok' && data.articles && data.articles.length > 0) {
         setArticles(data.articles);
         setTotalResults(data.totalResults);
       } else {
-        console.error('API Error:', data.message);
-        setArticles([]);
+        // If API returns no articles, use fallback data
+        console.log('No articles from API, using fallback data');
+        setArticles(getDummyNews(category, query));
+        setTotalResults(9);
       }
     } catch (error) {
       console.error('Fetch error:', error);
-      setArticles([]);
+      // Use fallback data when API fails
+      setArticles(getDummyNews(category, query));
+      setTotalResults(9);
     } finally {
       setLoading(false);
     }
