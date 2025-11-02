@@ -76,13 +76,13 @@ npm run build
 ```
 src/
 ├── components/
-│   ├── DataTable.jsx      # Komponen tabel berita
-│   ├── DetailCard.jsx     # Kartu detail berita
-│   ├── Header.jsx         # Header dengan navigasi
-│   └── SearchForm.jsx     # Form pencarian & filter
-├── App.jsx               # Komponen utama
-├── App.css              # Stylesheet
-└── index.js             # Entry point
+│   ├── DataTable.jsx      
+│   ├── DetailCard.jsx     
+│   ├── Header.jsx         
+│   └── SearchForm.jsx     
+├── App.jsx              
+├── App.css              
+└── index.js             
 ```
 
 ## 🎯 Cara Penggunaan
