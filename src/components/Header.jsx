@@ -10,7 +10,7 @@ const Header = ({ onCategoryChange, activeCategory }) => {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
             <Newspaper className="w-8 h-8" />
-            <h1 className="text-3xl font-bold">Digit 4 News Portal</h1>
+            <h1 className="text-3xl font-bold">Digital News Portal</h1>
           </div>
         </div>
         <nav className="flex space-x-4">
