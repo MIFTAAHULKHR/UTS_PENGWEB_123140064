@@ -19,7 +19,7 @@ Sebuah aplikasi portal berita modern yang dibangun dengan React.js dan Tailwind 
 
 ## 🌐 Link Deployment
 
-**Live Demo:** [https://uts-pwd-123140064.vercel.app](https://uts-pengweb-123140064-1symboqnl-miftahul-khoiriyahs-projects.vercel.app/)
+**Live Demo:** [https://uts-pwd-123140064.vercel.app](https://uts-pengweb-123140064.vercel.app/)
 
 ## 📸 Screenshot Aplikasi
 
