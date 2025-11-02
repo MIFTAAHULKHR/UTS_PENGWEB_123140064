@@ -461,47 +461,47 @@ const getDummyNews = (category, query) => {
     );
   }
 
-  return filteredNews.length > 0 ? filteredNews : baseNews.slice(0, 9);
+  return filteredNews.length > 0 ? filteredNews : baseNews;
 };
 
   const fetchNews = async (category, page = 1, query = '', dates = {}) => {
-    setLoading(true);
-    try {
-      let url = `https://newsapi.org/v2/top-headlines?category=${category}&pageSize=${pageSize}&page=${page}&apiKey=${API_KEY}`;
-      
-      if (query) {
-        url = `https://newsapi.org/v2/everything?q=${query}&pageSize=${pageSize}&page=${page}&apiKey=${API_KEY}`;
-      }
-      if (dates.from) url += `&from=${dates.from}`;
-      if (dates.to) url += `&to=${dates.to}`;
-
-      const response = await fetch(url);
-      
-      // Check if response is OK
-      if (!response.ok) {
-        throw new Error(`API Error: ${response.status}`);
-      }
-      
-      const data = await response.json();
-
-      if (data.status === 'ok' && data.articles && data.articles.length > 0) {
-        setArticles(data.articles);
-        setTotalResults(data.totalResults);
-      } else {
-        // If API returns no articles, use fallback data
-        console.log('No articles from API, using fallback data');
-        setArticles(getDummyNews(category, query));
-        setTotalResults(9);
-      }
-    } catch (error) {
-      console.error('Fetch error:', error);
-      // Use fallback data when API fails
-      setArticles(getDummyNews(category, query));
-      setTotalResults(9);
-    } finally {
-      setLoading(false);
+  setLoading(true);
+  try {
+    let url = `https://newsapi.org/v2/top-headlines?category=${category}&pageSize=${pageSize}&page=${page}&apiKey=${API_KEY}`;
+    
+    if (query) {
+      url = `https://newsapi.org/v2/everything?q=${query}&pageSize=${pageSize}&page=${page}&apiKey=${API_KEY}`;
     }
-  };
+    if (dates.from) url += `&from=${dates.from}`;
+    if (dates.to) url += `&to=${dates.to}`;
+
+    const response = await fetch(url);
+    
+    // Check if response is OK
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.status}`);
+    }
+    
+    const data = await response.json();
+
+    if (data.status === 'ok' && data.articles && data.articles.length > 0) {
+      setArticles(data.articles);
+      setTotalResults(data.totalResults);
+    } else {
+      // If API returns no articles, use fallback data
+      console.log('No articles from API, using fallback data');
+      setArticles(getDummyNews(category, query));
+      setTotalResults(50); // UPDATE: 50 karena ada 50 data fallback
+    }
+  } catch (error) {
+    console.error('Fetch error:', error);
+    // Use fallback data when API fails
+    setArticles(getDummyNews(category, query));
+    setTotalResults(50); // UPDATE: 50 karena ada 50 data fallback
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     fetchNews(activeCategory, currentPage, searchQuery, dateRange);
