@@ -19,9 +19,7 @@ Sebuah aplikasi portal berita modern yang dibangun dengan React.js dan Tailwind 
 
 ## 🌐 Link Deployment
 
-- **Live Demo:** [https://uts-pwd-123140064.vercel.app](https://uts-pengweb-123140064-1symboqnl-miftahul-khoiriyahs-projects.vercel.app/)
-- **Notes** Pada halaman vercel, developer telah menambahkan sebanyak 50 data berita, namun data keseluruhan tidak muncul di dashboard tapi ketika dilakukan pencarian data akan muncul. 
-
+**Live Demo:** [https://uts-pwd-123140064.vercel.app](https://uts-pengweb-123140064-1symboqnl-miftahul-khoiriyahs-projects.vercel.app/)
 
 ## 📸 Screenshot Aplikasi
 
