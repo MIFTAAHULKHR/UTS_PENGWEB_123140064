@@ -9,11 +9,12 @@ const DetailCard = ({ article }) => {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
       <img
-        src={article.urlToImage || 'https://via.placeholder.com/400x200?text=No+Image'}
+        src={article.urlToImage || 'https://picsum.photos/400/250?random=999'}
         alt={article.title}
         className="w-full h-48 object-cover"
         onError={(e) => {
-          e.target.src = 'https://via.placeholder.com/400x200?text=No+Image';
+          e.target.src = 'https://picsum.photos/400/250?random=999';
+          e.target.alt = 'Default News Image';
         }}
       />
       <div className="p-4">
