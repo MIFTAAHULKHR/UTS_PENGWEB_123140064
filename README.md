@@ -1,4 +1,4 @@
-# 📰 Digit 4 News Portal
+# 📰 Digital News Portal
 
 Sebuah aplikasi portal berita modern yang dibangun dengan React.js dan Tailwind CSS, menyediakan akses ke berita terkini dari berbagai kategori dengan antarmuka yang responsif dan user-friendly.
 
