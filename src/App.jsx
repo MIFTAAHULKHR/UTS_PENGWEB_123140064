@@ -16,7 +16,6 @@ const App = () => {
   const API_KEY = process.env.REACT_APP_NEWS_API_KEY || 'c55a2ef964ec4367883e121fd4af23dc';
   const pageSize = 9;
 
-// FALLBACK DATA FUNCTION
 const getDummyNews = (category, query) => {
   const baseNews = [
     {
@@ -445,7 +444,6 @@ const getDummyNews = (category, query) => {
     }
   ];
 
-  // Filter by category or search query
   let filteredNews = baseNews;
   if (category && category !== 'general') {
     filteredNews = baseNews.filter(article => 
@@ -477,7 +475,6 @@ const getDummyNews = (category, query) => {
 
     const response = await fetch(url);
     
-    // Check if response is OK
     if (!response.ok) {
       throw new Error(`API Error: ${response.status}`);
     }
@@ -488,16 +485,14 @@ const getDummyNews = (category, query) => {
       setArticles(data.articles);
       setTotalResults(data.totalResults);
     } else {
-      // If API returns no articles, use fallback data
       console.log('No articles from API, using fallback data');
       setArticles(getDummyNews(category, query));
-      setTotalResults(50); // UPDATE: 50 karena ada 50 data fallback
+      setTotalResults(50); 
     }
   } catch (error) {
     console.error('Fetch error:', error);
-    // Use fallback data when API fails
     setArticles(getDummyNews(category, query));
-    setTotalResults(50); // UPDATE: 50 karena ada 50 data fallback
+    setTotalResults(50); 
   } finally {
     setLoading(false);
   }
