@@ -19,8 +19,8 @@ Sebuah aplikasi portal berita modern yang dibangun dengan React.js dan Tailwind 
 
 ## 🌐 Link Deployment
 
-**Live Demo:** [https://uts-pwd-123140064.vercel.app](https://uts-pengweb-123140064-1symboqnl-miftahul-khoiriyahs-projects.vercel.app/)
-**Notes** Pada halaman vercel, developer telah menambahkan sebanyak 50 data berita, namun data keseluruhan tidak muncul di dashboard tapi ketika dilakukan pencarian data akan muncul. 
+- **Live Demo:** [https://uts-pwd-123140064.vercel.app](https://uts-pengweb-123140064-1symboqnl-miftahul-khoiriyahs-projects.vercel.app/)
+- **Notes** Pada halaman vercel, developer telah menambahkan sebanyak 50 data berita, namun data keseluruhan tidak muncul di dashboard tapi ketika dilakukan pencarian data akan muncul. 
 
 
 ## 📸 Screenshot Aplikasi
@@ -29,7 +29,7 @@ Sebuah aplikasi portal berita modern yang dibangun dengan React.js dan Tailwind 
 *Halaman utama dengan grid berita*
 
 ![Date Functionality](/Tampilan2.png)
-*Fitur pencarian dan filter*
+*Fitur filter berita berdasarkan tanggal*
 
 ## 💻 Cara Instalasi dan Menjalankan
 
@@ -53,7 +53,7 @@ Sebuah aplikasi portal berita modern yang dibangun dengan React.js dan Tailwind 
 3. **Setup environment variables** (opsional)
    Buat file `.env` dan tambahkan:
    ```env
-   REACT_APP_NEWS_API_KEY=your_newsapi_key_here
+   REACT_APP_NEWS_API_KEY=your_actual_api_key_here
    ```
 
 4. **Jalankan aplikasi**
